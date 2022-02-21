@@ -1,22 +1,22 @@
 const { response } = require('express');
-const clientRepository = require('../../repositories/clientRepository');
+const accountRepository = require('../../repositories/accountRepository');
 
-const getClients = async (req, res = response )  =>  {
+const getAccounts = async (req, res = response )  =>  {
     try {
      
-      const clients = await clientRepository.getAll();
-      const count = await clientRepository.count();
+      const accounts = await accountRepository.getAll();
+      const count = await accountRepository.count();
   
-    if(!clients){
+    if(!accounts){
         return res.status(401).json({
           message:  'Not Autorizado',
         })
     }
   
     res.status(200).json({
-    message: 'Clients',
-    response: clients,
-    total: count
+      message: 'Accounts',
+      response: accounts,
+      total: count
     })
   
     } catch (error) {
@@ -27,22 +27,22 @@ const getClients = async (req, res = response )  =>  {
     }
   }
 
-const getClient = async (req, res = response) => {
+const getAccount = async (req, res = response) => {
   
   const id = req.params.id
   try{
 
-    const client = await clientRepository.getOne(id)
-    console.log(client);
-    if(!client){
+    const account = await accountRepository.getOne(id)
+    console.log(account);
+    if(!account){
       return res.status(401).json({
         message: 'Sin Autorizacion',
       })
     }
 
     return res.status(200).json({
-      message: 'Client',
-      data: client,
+      message: 'Account',
+      data: account,
     })
 
   } catch (error) {
@@ -51,11 +51,9 @@ const getClient = async (req, res = response) => {
       err: error
       })
   }
-
-
 }
 
-  module.exports = {
-      getClients,
-      getClient
+module.exports = {
+      getAccounts,
+      getAccount
     }
